@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { MDXProvider } from "@mdx-js/react"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +27,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(() => {
+          try {
+            const pattern = /^__processed_/;
+            [document.documentElement, document.body].forEach((el) => {
+              if (!el || !el.attributes) return;
+              const toRemove = [];
+              for (let i = 0; i < el.attributes.length; i++) {
+                const name = el.attributes[i].name;
+                if (pattern.test(name) || name === 'bis_register') toRemove.push(name);
+              }
+              toRemove.forEach((n) => el.removeAttribute(n));
+            });
+          } catch (e) {}
+        })();` }} />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

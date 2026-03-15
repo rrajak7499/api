@@ -1,0 +1,25 @@
+
+# Getting Started
+
+BridgePort lets you send events through a powerful API.
+
+## Install the SDK
+
+```bash
+npm install bridgeport
+```
+
+## Initialize the client
+
+```ts
+import { BridgePort } from "bridgeport";
+
+const api = new BridgePort({
+	apiKey: process.env.API_KEY,
+});
+
+await api.events.send({
+	name: "user.signup",
+	userId: "42",
+});
+```
